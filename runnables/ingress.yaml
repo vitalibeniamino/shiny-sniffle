@@ -1,0 +1,39 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+    name: student-app-ingress
+    #namespace: student-app
+spec:
+    rules:
+        - host: student-app-frontend.com
+          http:
+              paths:
+                  - path: /
+                    pathType: Prefix
+                    backend:
+                        service:
+                            name: student-app-frontend-svc
+                            port:
+                                number: 80
+
+        - host: api-student-app.com
+          http:
+              paths:
+                  - path: /
+                    pathType: Prefix
+                    backend:
+                        service:
+                            name: student-app-backend-svc
+                            port:
+                                number: 8080
+
+        - host: mongo-student-app.com
+          http:
+              paths:
+                  - path: /
+                    pathType: Prefix
+                    backend:
+                        service:
+                            name: student-app-mongo-svc
+                            port:
+                                number: 27017

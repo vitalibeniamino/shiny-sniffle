@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: student-app-backend-deploy
+    #namespace: student-app
+spec:
+    selector:
+        matchLabels:
+            app: backend
+    replicas: 1
+    template:
+        metadata:
+            labels:
+                app: backend
+        spec:
+            containers:
+                - name: backend
+                  image: benvit/student-app-backend
+                  env:
+                      - name: APIKEY
+                        value: "2TINDEVOPS"
+                      - name: CONNECTIONSTRING
+                        value: "mongodb://mongo:27017/test"
+                  imagePullPolicy: IfNotPresent
+                  ports:
+                      - containerPort: 8080
+                  resources:
+                      limits:
+                          memory: "128Mi"
+                          cpu: "500m"
